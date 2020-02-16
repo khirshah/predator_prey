@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
-
-import { render } from 'react-dom'
-import ReactDOMServer from 'react-dom/server';
-import { ReactSVG } from 'react-svg'
-
 import {Col, Row} from 'react-bootstrap';
 
 import * as d3 from "d3";
-//var odex = require('odex');
 
 import dataGrid from "./model";
-
 import styles from "../styles/lotkaVoltera.css"
 
 
 export default class LotkaVoltera extends Component {
 
   constructor(props) {
+    super(props);
 
     const width= 600,
       height= 600,
@@ -45,8 +39,6 @@ export default class LotkaVoltera extends Component {
               .scale(yScale)
               .ticks(4);
 
-    super(props);
-    
     this.state = {
       width,
       height,
@@ -98,44 +90,48 @@ export default class LotkaVoltera extends Component {
         <div id="SVGContainer">
           <svg id="vectorspace" width={this.state.width+this.state.margin} height={this.state.height+this.state.margin} padding={this.state.padding}>
             <g id="datapoints">
-            {this.renderDataPoints()}
-            {/*<g className="chart-axis chart-axis--x" transform={`translate(0,${this.state.xScale(0)})`}></g>*/}
+              {this.renderDataPoints()}
             </g>
-          <g className={`chart-axis chart-axis--x ${styles.axis}`}
-             transform={`translate(0,${this.state.height-this.state.padding+5})`}>
-              <line
-                    x1={this.state.padding}
-                    x2={this.state.width-this.state.padding}
-                    y1={0}
-                    y2={0}
-              > 
-              </line>
-            {this.state.xTicks.map((d) => (
-              <text key={d}
-                    x={this.state.xScale(d)}
-                    y="20">
-                {d}
-              </text>
-            ))}
+            <g className={`chart-axis chart-axis--x ${styles.axis}`}
+               transform={`translate(0,${this.state.height-this.state.padding+5})`}>
+                <line
+                  x1={this.state.padding}
+                  x2={this.state.width-this.state.padding}
+                  y1={0}
+                  y2={0}
+                > 
+                </line>
+              {this.state.xTicks.map((d) => (
+                <text 
+                  key={d}
+                  x={this.state.xScale(d)}
+                  y="20"
+                >
+                  {d}
+                </text>
+              ))}
 
+              </g>
+              <g className={`chart-axis chart-axis--y  ${styles.axis}`}>
+                <text 
+                  className="chart-unit"
+                  transform="rotate(-90)"
+                  x="60" y="40"
+                >
+                  {"number of foxes"}
+                </text>
+
+              {this.state.yTicks.map((d) => (
+                <text 
+                  className="tick"
+                  key={d}
+                  x="0"
+                  y={this.state.yScale(d) + 4}
+                >
+                  {d}
+                </text>
+              ))}
             </g>
-            <g className={`chart-axis chart-axis--y  ${styles.axis}`}>
-              <text className="chart-unit"
-                    transform="rotate(-90)"
-                    x="60" y="40">
-                {"text"}
-              </text>
-
-
-            {this.state.yTicks.map((d) => (
-              <text className="tick"
-                    key={d}
-                    x="0"
-                    y={this.state.yScale(d) + 4}>
-                {d}
-              </text>
-            ))}
-          </g>
           </svg>
         </div>
       </Col>
