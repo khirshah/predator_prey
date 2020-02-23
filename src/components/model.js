@@ -89,32 +89,37 @@ for (let v of values) {
   //plot trajectory
 }*/
 
-const ylim = [0,40];
-const xlim = [0,60];
-const nb_points = 20;
-
-const dataGrid = [];
-
-for (let i = 0; i<=60 ; i+=3) {
-  for (let j = 0; j<=40 ; j+=2) {
-      //compute growth rate
-      let dataPoint = {x:i, y:j, modellValues: dX_dt([i,j])};
-      //Norm of the growth rate
-      let M = hypot(dataPoint.modellValues);
-      //Avoid zero division errors 
-      M = M == 0 ? 1:M;
-      //Normalize each arrow
-      dataPoint.modellValues[0] /= M;
-      dataPoint.modellValues[1] /= M;
-      dataPoint.magnitude = M;
-      //save dataPoint in array
-      dataGrid.push(dataPoint);
-  }
-};
 
 
 function hypot(values) {
   return Math.sqrt(values[0]*values[0] + values[1]*values[1]);
-}
+};
 
-export default dataGrid;
+
+export default function dataGrid() {
+
+  const ylim = [0,40];
+  const xlim = [0,60];
+  const nb_points = 20;
+
+  const dGrid = [];
+
+  for (let i = 0; i<=60 ; i+=3) {
+    for (let j = 0; j<=40 ; j+=2) {
+        //compute growth rate
+        let dataPoint = {x:i, y:j, modellValues: dX_dt([i,j])};
+        //Norm of the growth rate
+        let M = hypot(dataPoint.modellValues);
+        //Avoid zero division errors 
+        M = M == 0 ? 1:M;
+        //Normalize each arrow
+        dataPoint.modellValues[0] /= M;
+        dataPoint.modellValues[1] /= M;
+        dataPoint.magnitude = M;
+        //save dataPoint in array
+        dGrid.push(dataPoint);
+    }
+  };
+
+  return dGrid;
+};

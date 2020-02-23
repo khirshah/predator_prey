@@ -17,6 +17,8 @@ export default class LotkaVoltera extends Component {
       margin=0,
       padding= 50 ; 
 
+    this.dataGrid = dataGrid();
+
     //------------------------------------ datascale ------------------------------
     const yScale =  d3.scaleLinear().domain([0,40]).range([height-padding,padding]);
   
@@ -24,7 +26,7 @@ export default class LotkaVoltera extends Component {
     const xScale = d3.scaleLinear().domain([0,60]).range([padding,width-padding]);
 
       //----------------------------- color --------------------------------
-    const max_magnitude = dataGrid.reduce(function (max_, it) {
+    const max_magnitude = this.dataGrid.reduce(function (max_, it) {
       return (!isNaN(it.magnitude) && (max_ > it.magnitude)) ? max_ : it.magnitude;
     }, 0); 
 
@@ -38,6 +40,7 @@ export default class LotkaVoltera extends Component {
     const yAxis = d3.axisLeft()
               .scale(yScale)
               .ticks(4);
+
 
     this.state = {
       width,
@@ -55,7 +58,7 @@ export default class LotkaVoltera extends Component {
   }
 
   renderDataPoints = () => {
-    return dataGrid.map((i,index) => {
+    return this.dataGrid.map((i,index) => {
     
       if (!isNaN(i.magnitude)) {
 
