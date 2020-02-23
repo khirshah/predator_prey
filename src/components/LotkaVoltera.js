@@ -14,7 +14,7 @@ export default class LotkaVoltera extends Component {
 
     const width= 600,
       height= 600,
-      margin=100,
+      margin=0,
       padding= 50 ; 
 
     //------------------------------------ datascale ------------------------------
@@ -92,20 +92,21 @@ export default class LotkaVoltera extends Component {
             <g className={styles.datapoints}>
               {this.renderDataPoints()}
             </g>
+          {/*-------------------------------- X Axis -----------------------*/}
             <g className={`chart-axis chart-axis--x ${styles.axis}`}
                transform={`translate(0,${this.state.height-this.state.padding+5})`}>
                 <line
                   x1={this.state.padding}
                   x2={this.state.width-this.state.padding}
-                  y1={0}
-                  y2={0}
+                  y1="5"
+                  y2="5"
                 > 
                 </line>
               {this.state.xTicks.map((Xtick) => (
                   <text 
                     key={Xtick}
                     x={this.state.xScale(Xtick)-10}
-                    y="20"
+                    y="27"
                   >
                     {Xtick}
                   </text>
@@ -115,16 +116,17 @@ export default class LotkaVoltera extends Component {
                     key={Xtick}
                     x1={this.state.xScale(Xtick)}
                     x2={this.state.xScale(Xtick)}
-                    y1={0}
-                    y2={7}
+                    y1={5}
+                    y2={12}
                   > 
                   </line>              
               ))}
               </g>
+            {/*-------------------------------- Y Axis -----------------------*/}
               <g className={`chart-axis chart-axis--y  ${styles.axis}`}>
                 <line
-                  x1={this.state.padding}
-                  x2={this.state.padding}
+                  x1={this.state.padding-5}
+                  x2={this.state.padding-5}
                   y1={this.state.padding}
                   y2={this.state.width-this.state.padding}
                 > 
@@ -143,7 +145,7 @@ export default class LotkaVoltera extends Component {
                 <text 
                   className="tick"
                   key={Ytick}
-                  x="0"
+                  x="12"
                   y={this.state.yScale(Ytick) + 4}
                 >
                   {Ytick}
@@ -152,8 +154,8 @@ export default class LotkaVoltera extends Component {
               {this.state.yTicks.map((Ytick) => (
                 <line
                   key={Ytick}
-                  x1={this.state.padding}
-                  x2={this.state.padding-7}
+                  x1={this.state.padding-12}
+                  x2={this.state.padding-5}
                   y1={this.state.yScale(Ytick)}
                   y2={this.state.yScale(Ytick)}
                 > 
