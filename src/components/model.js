@@ -51,7 +51,6 @@ function d2X_dt2(X, t=0){
 const A_f0 = d2X_dt2(X_f0) 
 
 
-/*
 
 const time = lodash.range([0], 1000, [20])
 //console.log(time)
@@ -72,7 +71,7 @@ const LotkaVolterra = function(a, b, c, d) {
     ];
   };
 };
-*/
+
 
 /* 
 must supply initial data for both of them. 
@@ -80,15 +79,35 @@ To find the state of the rabbits and wolves at time 6,
 if the state at time zero is {y0 = 1, y1 = 1}:
 */
 
-/*const s = new odex.Solver(2);
 //console.log(s.solve(LotkaVolterra(0.6, 0.75, 1, 1), 0, [1, 1], 6).y);
+const timeArray = lodash.range([0.01], 0.1, [0.01]);
+console.log(timeArray);
+ 
 
-for (let v of values) {
-  const X0 = v * X_f1;
-  const X = s.solve(LotkaVolterra(0.6, 0.75, 1, 1), 0, [1, 1], v).y
-  //plot trajectory
-}*/
 
+var trajectories = () => {
+  
+  const s = new odex.Solver(2);
+  const trjs = [];
+  const X0 = 0.9 * X_f1;
+  
+  /*timeArray.map(t => {
+  const X = s.solve(LotkaVolterra(2/3, 4/3, 1, 1), 0, [1, 1], t).y
+    trjs.push([X[0]*25,X[1]*25]);    
+  })
+  */
+  
+  for (let time=0; time<80; time++){
+
+      const X = s.solve(LotkaVolterra(2/3, 4/3, 1, 1), 0, [1, 1], time/10, function(n,x0,x1,y) {
+        //console.log(n,x0,x1,y);
+        //trjs.push([y[0]*25,y[1]*25]);
+      }).y
+      trjs.push([X[0]*25,X[1]*25]);
+  }
+  
+  return trjs;
+}
 
 
 function hypot(values) {
@@ -96,7 +115,7 @@ function hypot(values) {
 };
 
 
-export default function dataGrid() {
+const dataGrid = () => {
 
   const ylim = [0,40];
   const xlim = [0,60];
@@ -123,3 +142,5 @@ export default function dataGrid() {
 
   return dGrid;
 };
+
+export {trajectories,dataGrid};

@@ -3,7 +3,7 @@ import {Col, Row} from 'react-bootstrap';
 
 import * as d3 from "d3";
 
-import dataGrid from "./model";
+import {dataGrid, trajectories} from "./model";
 import styles from "../styles/lotkaVoltera.css";
 
 
@@ -19,6 +19,7 @@ export default class LotkaVoltera extends Component {
 
     this.dataGrid = dataGrid();
 
+
     //------------------------------------ datascale ------------------------------
     const yScale =  d3.scaleLinear().domain([0,40]).range([height-padding,padding]);
   
@@ -33,13 +34,16 @@ export default class LotkaVoltera extends Component {
     const colorScale = d3.scaleSequential(d3.interpolateTurbo).domain([0,max_magnitude]);
 
     //-------------------------------------- axes ----------------------------------
-    const xAxis = d3.axisBottom()
+    /*const xAxis = d3.axisBottom()
               .scale(xScale)
               .ticks(6);
 
     const yAxis = d3.axisLeft()
               .scale(yScale)
               .ticks(4);
+*/
+    this.trajectories = trajectories();
+
 
 
     this.state = {
@@ -51,13 +55,18 @@ export default class LotkaVoltera extends Component {
       xTicks: xScale.ticks(6),
       yScale,
       yTicks: yScale.ticks(4),
-      colorScale,
-      xAxis,
-      yAxis
+      colorScale
     };
   }
 
   renderDataPoints = () => {
+
+    const lineStatic = d3.line()
+      .curve(d3.curveLinearClosed)
+      .x((d) => xScale(d[0]))
+      .y((d) => yScale(d[1]));
+    
+
     return this.dataGrid.map((i,index) => {
     
       if (!isNaN(i.magnitude)) {
@@ -86,7 +95,35 @@ export default class LotkaVoltera extends Component {
 
     }
 
+  getPathInString = () => {
+    const numTrjs = this.trajectories.length;
+    let path = "";
+    for (let i = 0; i < numTrjs-1; ++i) {
+      const trajX = this.trajectories[i][0];
+      const trajY = this.trajectories[i][1];
+      path = `${path}M ${this.state.xScale(this.state.xScale(trajX))} ${this.state.yScale(this.state.yScale(trajY))} L ${this.state.xScale(this.state.xScale(this.trajectories[i+1][0]))} ${this.state.yScale(this.state.yScale(this.trajectories[i+1][1]))} `
+     
+      //path = `${path}M ${this.state.xScale(this.trajectories[i].x1)} ${this.state.yScale(this.trajectories[i].y[0])} L ${this.state.xScale(this.trajectories[i+1].x1)} ${this.state.yScale(this.trajectories[i+1].y[0])} `
+     
+    }
+    console.log(path)
+    return path;
+  }
+
   render() {
+
+    const lineStatic = d3.line()
+      .curve(d3.curveLinearClosed)
+      .x(d => this.state.xScale(d[0])) // + this.state.xScale(0)
+      .y(d => this.state.yScale(d[1]));
+      //.attr("transform", `translate(${5},0)`)
+
+      //`translate(${5},0)`
+      //"translate(" + (this.state.xScale(d[0]) - this.state.xScale(0)) + "," + (this.state.yScale(d[1]) - this.state.yScale(0)) + ")"
+
+    console.log(this.trajectories.map((tr => {
+      return [tr[0],tr[1],this.state.xScale(tr[0]),this.state.yScale(tr[1]), this.state.xScale(0),this.state.yScale(0)];
+    })));
     
     return (     
       <Col>
@@ -94,6 +131,14 @@ export default class LotkaVoltera extends Component {
           <svg className={styles.vectorspace} width={this.state.width+this.state.margin} height={this.state.height+this.state.margin} padding={this.state.padding}>
             <g className={styles.datapoints}>
               {this.renderDataPoints()}
+              {/* curve*/
+                 
+              }
+            </g>
+            <g>
+              <path d={lineStatic(this.trajectories)} stroke="red" fill="none"></path>
+              {/*<path d={this.getPathInString()} stroke="red"></path>*/}
+
             </g>
           {/*-------------------------------- X Axis -----------------------*/}
             <g className={`chart-axis chart-axis--x ${styles.axis}`}
