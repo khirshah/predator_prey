@@ -11,29 +11,49 @@ export default class LotkaVoltera extends Component {
 
   constructor(props) {
     super(props);
-
+    //------------------------------------ graph properties ------------------------------
     this.width = 600;
     this.height = 600;
     this.margin = 0;
     this.padding = 50; 
 
-    this.dataGrid = dataGrid();
+    const xRange = [0,3];
+    const yRange = [0,3];
+    const xStep = 0.2;
+    const yStep = 0.2;
 
+    //-------------------------------------- parameters ---------------------------------
+    const time = {
+      start: 1,
+      stop: 9.5,
+      step: 0.1
+    }
 
-    //------------------------------------ datascale ------------------------------
-    const yScale =  d3.scaleLinear().domain([0,3]).range([this.height - this.padding,this.padding]);
-    const xScale = d3.scaleLinear().domain([0,3]).range([this.padding, this.width - this.padding]);
+    const modelParams = {
+      rabbitGrowthRate: 2/3,
+      rabbitDeathRate: 4/3,
+      predationRate: 1,
+      foxDeathRate:1
+    } 
 
-      //----------------------------- color --------------------------------
+    //---------------------------------- vector data ---------------------------------
+    this.dataGrid = dataGrid(xRange, yRange, xStep, yStep,modelParams);
+    //--------------------------------- trajectories ---------------------------------
+
+    this.trajectories = trajectories(time,modelParams);
+
+    //------------------------------------ datascale -------------------------------------
+    const yScale =  d3.scaleLinear().domain(xRange).range([this.height - this.padding,this.padding]);
+    const xScale = d3.scaleLinear().domain(yRange).range([this.padding, this.width - this.padding]);
+
+    //------------------------------------ color -----------------------------------------
     const max_magnitude = this.dataGrid.reduce(function (max_, it) {
       return (!isNaN(it.magnitude) && (max_ > it.magnitude)) ? max_ : it.magnitude;
     }, 0); 
 
     const colorScale = d3.scaleSequential(d3.interpolateTurbo).domain([0,max_magnitude]);
 
-
-    this.trajectories = trajectories();
-
+    //------------------------------------ STATE -----------------------------------------
     this.state = {   
       xScale,
       xTicks: xScale.ticks(6),
