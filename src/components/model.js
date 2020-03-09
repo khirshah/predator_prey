@@ -19,18 +19,18 @@ with the following notations:
 */
 
 //a: the natural growing rate of rabbits, when there's no fox
-const rabbitGrowthRate = 1.0;
+const rabbitGrowthRate = 2/3;
 //b: the natural dying rate of rabbits, due to predation
-const rabbitDeathRate = 0.1;
+const rabbitDeathRate = 4/3;
 //c: the natural dying rate of fox, when there's no rabbit
-const foxDeathRate = 1.5;
+const foxDeathRate = 1;
 //d: the factor describing how many caught rabbits let create a new fox
-const predationRate = 0.75;
+const predationRate = 1;
 
 
 function dX_dt(X, t=0) {
   return [ rabbitGrowthRate * X[0] - rabbitDeathRate*X[0]*X[1],
-  -foxDeathRate*X[1] + predationRate*rabbitDeathRate*X[0]*X[1]]
+          predationRate*rabbitDeathRate * X[0]*X[1]- foxDeathRate*X[1]]
 };
 
 //Population equillibrium
@@ -48,19 +48,7 @@ function d2X_dt2(X, t=0){
 }
 
 //near X_f0, which represents the extinction of both species, we have:
-const A_f0 = d2X_dt2(X_f0) 
-
-
-
-const time = lodash.range([0], 1000, [20])
-//console.log(time)
-// initial conditions: 10 rabbits and 5 foxes
-const X0 = [10, 5];             
-
-
-
-const values  = lodash.range([0.3], 0.9, [0.15]);
-
+const A_f0 = d2X_dt2(X_f0)          
 
 
 const LotkaVolterra = function(a, b, c, d) {
@@ -77,35 +65,21 @@ const LotkaVolterra = function(a, b, c, d) {
 must supply initial data for both of them. 
 To find the state of the rabbits and wolves at time 6, 
 if the state at time zero is {y0 = 1, y1 = 1}:
-*/
-
 //console.log(s.solve(LotkaVolterra(0.6, 0.75, 1, 1), 0, [1, 1], 6).y);
-const timeArray = lodash.range([0.01], 0.1, [0.01]);
-console.log(timeArray);
- 
+*/
 
 
 var trajectories = () => {
-  
+
+  const timeArray = lodash.range([1], 9.5, [0.1]);
   const s = new odex.Solver(2);
   const trjs = [];
-  const X0 = 0.9 * X_f1;
   
-  /*timeArray.map(t => {
-  const X = s.solve(LotkaVolterra(2/3, 4/3, 1, 1), 0, [1, 1], t).y
-    trjs.push([X[0]*25,X[1]*25]);    
+  timeArray.map(t => {
+  const X = s.solve(LotkaVolterra(rabbitGrowthRate,rabbitDeathRate, predationRate, foxDeathRate), 0, [2, 1], t).y
+    trjs.push([X[0],X[1]]);    
   })
-  */
-  
-  for (let time=0; time<80; time++){
 
-      const X = s.solve(LotkaVolterra(2/3, 4/3, 1, 1), 0, [1, 1], time/10, function(n,x0,x1,y) {
-        //console.log(n,x0,x1,y);
-        //trjs.push([y[0]*25,y[1]*25]);
-      }).y
-      trjs.push([X[0]*25,X[1]*25]);
-  }
-  
   return trjs;
 }
 
@@ -117,30 +91,32 @@ function hypot(values) {
 
 const dataGrid = () => {
 
-  const ylim = [0,40];
-  const xlim = [0,60];
-  const nb_points = 20;
+  const xScale = lodash.range([0], 3.2, [0.2]);
+  const yScale = lodash.range([0], 3.2, [0.2]);
 
-  const dGrid = [];
+  const dataGrid = xScale.map(xp => {
 
-  for (let i = 0; i<=60 ; i+=3) {
-    for (let j = 0; j<=40 ; j+=2) {
-        //compute growth rate
-        let dataPoint = {x:i, y:j, modellValues: dX_dt([i,j])};
-        //Norm of the growth rate
-        let M = hypot(dataPoint.modellValues);
-        //Avoid zero division errors 
-        M = M == 0 ? 1:M;
-        //Normalize each arrow
-        dataPoint.modellValues[0] /= M;
-        dataPoint.modellValues[1] /= M;
-        dataPoint.magnitude = M;
-        //save dataPoint in array
-        dGrid.push(dataPoint);
-    }
-  };
+    let column = yScale.map(yp => {
 
-  return dGrid;
+      //compute growth rate????????
+      let dataPoint = {x:xp, y:yp, modellValues: dX_dt([xp,yp])};
+
+      //Norm of the growth rate
+      let M = hypot(dataPoint.modellValues);
+      //Avoid zero division errors 
+      M = M == 0.0 ? 1 : M;
+      //Normalize each arrow
+      dataPoint.modellValues[0] /= M*10;
+      dataPoint.modellValues[1] /= M*10;
+      dataPoint.magnitude = M;
+
+      return dataPoint
+    });
+    
+    return column;
+  });
+
+  return dataGrid.flat(1);
 };
 
 export {trajectories,dataGrid};
