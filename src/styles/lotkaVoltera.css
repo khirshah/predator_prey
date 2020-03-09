@@ -15,6 +15,9 @@
 .SVGContainer {
   display: flex;
   justify-content: center;
-  /*background-color: #0d0d0d;*/
+}
+
+.vectorspace{
+  background-color: #FFF9B3; /*#FFF9B3A3;*/
 }
 
