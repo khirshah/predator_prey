@@ -56,7 +56,7 @@ export default class LotkaVoltera extends Component {
     //------------------------------------ STATE -----------------------------------------
     this.state = {   
       xScale,
-      xTicks: xScale.ticks(6),
+      xTicks: xScale.ticks(4),
       yScale,
       yTicks: yScale.ticks(4),
       colorScale
