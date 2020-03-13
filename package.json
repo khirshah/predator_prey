@@ -36,6 +36,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.16",
+    "react-bootstrap-range-slider": "^0.3.0",
     "react-dom": "^16.8.6",
     "react-svg": "^11.0.9"
   }
