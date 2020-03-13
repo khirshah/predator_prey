@@ -4,6 +4,7 @@ import {Col, Row} from 'react-bootstrap';
 import * as d3 from "d3";
 
 import {dataGrid, trajectories} from "./model";
+import ControlPanel from "./controlPanel";
 import styles from "../styles/lotkaVoltera.css";
 
 
@@ -106,8 +107,9 @@ export default class LotkaVoltera extends Component {
       .y(d => this.state.yScale(d[1]));
 
     return (     
-      <Col>
-        <div className={styles.SVGContainer}>
+      <Row>
+        <ControlPanel />
+        <Col className={styles.SVGContainer}>
           <svg className={styles.vectorspace} width={this.width+this.margin} height={this.height+this.margin} padding={this.padding}>
             <g className={styles.datapoints}>
               {this.renderDataPoints()}
@@ -186,8 +188,8 @@ export default class LotkaVoltera extends Component {
               ))}
             </g>
           </svg>
-        </div>
-      </Col>
+        </Col>
+      </Row>
     )
   }
 }
