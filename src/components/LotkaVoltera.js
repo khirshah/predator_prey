@@ -3,7 +3,7 @@ import {Col, Row} from 'react-bootstrap';
 
 import * as d3 from "d3";
 
-import {dataGrid, trajectories} from "./model";
+import {dataGrid, trajectory} from "./model";
 import ControlPanel from "./controlPanel";
 import styles from "../styles/lotkaVoltera.css";
 
@@ -24,24 +24,24 @@ export default class LotkaVoltera extends Component {
     const yStep = 0.2;
 
     //-------------------------------------- parameters ---------------------------------
-    const time = {
+    this.time = {
       start: 1,
       stop: 9.5,
       step: 0.1
     }
 
-    const modelParams = {
-      rabbitGrowthRate: 2/3,
-      rabbitDeathRate: 4/3,
-      predationRate: 1,
-      foxDeathRate:1
+    this.modelParams = {
+      preyGrowthRate: 2/3,
+      preyDeathRate: 4/3,
+      predatorGrowthRate: 1,
+      predatorDeathRate:1
     } 
 
     //---------------------------------- vector data ---------------------------------
-    this.dataGrid = dataGrid(xRange, yRange, xStep, yStep,modelParams);
-    //--------------------------------- trajectories ---------------------------------
+    this.dataGrid = dataGrid(xRange, yRange, xStep, yStep,this.modelParams);
+    //--------------------------------- trajectory ---------------------------------
 
-    this.trajectories = trajectories(time,modelParams);
+    this.trajectory = trajectory(this.time,this.modelParams);
 
     //------------------------------------ datascale -------------------------------------
     const yScale =  d3.scaleLinear().domain(xRange).range([this.height - this.padding,this.padding]);
@@ -55,13 +55,44 @@ export default class LotkaVoltera extends Component {
     const colorScale = d3.scaleSequential(d3.interpolateTurbo).domain([0,max_magnitude]);
 
     //------------------------------------ STATE -----------------------------------------
-    this.state = {   
+    this.state = {
+      modelParams: {...this.modelParams},
+      trajectory: this.trajectory,   
       xScale,
       xTicks: xScale.ticks(4),
       yScale,
       yTicks: yScale.ticks(4),
       colorScale
     };
+  }
+
+  handleParameterChange = (parameter, value) => {
+    const { modelParams } = this.state;
+    modelParams[parameter] = value
+    this.setState({
+      modelParams: modelParams
+    });
+
+  }
+
+  getTrajectory = (params) => {
+    const traj = trajectory(this.time,params);
+    this.setState({
+      trajectory: traj
+    })
+  }
+
+  resetParams = () => {
+    let { modelParams } = this.state;
+    modelParams = { ...this.modelParams };
+    this.setState({
+      modelParams: modelParams
+    })
+    this.getTrajectory(modelParams);
+  }
+
+  setParams = () => {
+    this.getTrajectory(this.state.modelParams);
   }
 
   renderDataPoints = () => {
@@ -108,14 +139,23 @@ export default class LotkaVoltera extends Component {
 
     return (     
       <Row>
-        <ControlPanel />
+        <ControlPanel 
+          onchange={this.handleParameterChange.bind(this)}
+          onshowbuttonclick={this.setParams}
+          onresetbuttonclick={this.resetParams}
+        />
         <Col className={styles.SVGContainer}>
-          <svg className={styles.vectorspace} width={this.width+this.margin} height={this.height+this.margin} padding={this.padding}>
+          <svg 
+            className={styles.vectorspace}
+            width={this.width+this.margin}
+            height={this.height+this.margin}
+            padding={this.padding}
+          >
             <g className={styles.datapoints}>
               {this.renderDataPoints()}
             </g>
             <g>
-              <path d={lineStatic(this.trajectories)} stroke="red" fill="none"></path>
+              <path d={lineStatic(this.state.trajectory)} stroke="red" fill="none"></path>
             </g>
             {/*-------------------------------- X Axis -----------------------*/}
             <g className={`chart-axis chart-axis--x ${styles.axis}`}

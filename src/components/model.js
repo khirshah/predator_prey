@@ -7,9 +7,9 @@ const odex = require("odex");
 //-------------------------------------- MODEL -----------------------------------------------------------
 
 const dX_dt = (X, t=0, modelParams) => {
-  const {rabbitGrowthRate,rabbitDeathRate, predationRate, foxDeathRate} = modelParams;
-  return [ rabbitGrowthRate * X[0] - rabbitDeathRate*X[0]*X[1],
-          predationRate*rabbitDeathRate * X[0]*X[1]- foxDeathRate*X[1]]
+  const {preyGrowthRate,preyDeathRate, predatorGrowthRate, predatorDeathRate} = modelParams;
+  return [ preyGrowthRate * X[0] - preyDeathRate*X[0]*X[1],
+          predatorGrowthRate*preyDeathRate * X[0]*X[1]- predatorDeathRate*X[1]]
 };
 
 
@@ -22,15 +22,15 @@ const LotkaVolterra = (a, b, c, d) => {
   };
 };
 
-const trajectories = (time,modellParams) => {
+const trajectory = (time,modellParams) => {
 
-  const {rabbitGrowthRate,rabbitDeathRate, predationRate, foxDeathRate} = modellParams;
+  const { preyGrowthRate, preyDeathRate, predatorGrowthRate, predatorDeathRate } = modellParams;
   const timeArray = lodash.range([time.start], time.stop, [time.step]);
   const s = new odex.Solver(2);
   const trjs = [];
   
   timeArray.map(t => {
-  const X = s.solve(LotkaVolterra(rabbitGrowthRate,rabbitDeathRate, predationRate, foxDeathRate), 0, [2, 1], t).y
+  const X = s.solve(LotkaVolterra(preyGrowthRate, preyDeathRate, predatorGrowthRate, predatorDeathRate), 0, [2, 1], t).y
     trjs.push([X[0],X[1]]);    
   })
 
@@ -73,4 +73,4 @@ const dataGrid = (xRange, yRange, xStep, yStep, modelParams) => {
   return dataGrid.flat(1);
 };
 
-export {trajectories,dataGrid};
+export {trajectory,dataGrid};
