@@ -3,7 +3,7 @@ import {Col, Row} from 'react-bootstrap';
 
 import * as d3 from "d3";
 
-import {dataGrid, trajectory} from "./model";
+import {vectorSpace, trajectory} from "./model";
 import ControlPanel from "./controlPanel";
 import styles from "../styles/lotkaVoltera.css";
 
@@ -18,10 +18,10 @@ export default class LotkaVoltera extends Component {
     this.margin = 0;
     this.padding = 50; 
 
-    const xRange = [0,3];
-    const yRange = [0,3];
-    const xStep = 0.2;
-    const yStep = 0.2;
+    this.xRange = [0,3];
+    this.yRange = [0,3];
+    this.xStep = 0.2;
+    this.yStep = 0.2;
 
     //-------------------------------------- parameters ---------------------------------
     this.time = {
@@ -38,17 +38,17 @@ export default class LotkaVoltera extends Component {
     } 
 
     //---------------------------------- vector data ---------------------------------
-    this.dataGrid = dataGrid(xRange, yRange, xStep, yStep,this.modelParams);
+    this.vectorSpace = vectorSpace(this.xRange, this.yRange, this.xStep, this.yStep,this.modelParams);
     //--------------------------------- trajectory ---------------------------------
 
     this.trajectory = trajectory(this.time,this.modelParams);
 
     //------------------------------------ datascale -------------------------------------
-    const yScale =  d3.scaleLinear().domain(xRange).range([this.height - this.padding,this.padding]);
-    const xScale = d3.scaleLinear().domain(yRange).range([this.padding, this.width - this.padding]);
+    const yScale =  d3.scaleLinear().domain(this.xRange).range([this.height - this.padding,this.padding]);
+    const xScale = d3.scaleLinear().domain(this.yRange).range([this.padding, this.width - this.padding]);
 
     //------------------------------------ color -----------------------------------------
-    const max_magnitude = this.dataGrid.reduce(function (max_, it) {
+    const max_magnitude = this.vectorSpace.reduce(function (max_, it) {
       return (!isNaN(it.magnitude) && (max_ > it.magnitude)) ? max_ : it.magnitude;
     }, 0); 
 
@@ -57,7 +57,8 @@ export default class LotkaVoltera extends Component {
     //------------------------------------ STATE -----------------------------------------
     this.state = {
       modelParams: {...this.modelParams},
-      trajectory: this.trajectory,   
+      trajectory: this.trajectory,
+      vectorSpace: [ ...this.vectorSpace ],   
       xScale,
       xTicks: xScale.ticks(4),
       yScale,
@@ -82,6 +83,13 @@ export default class LotkaVoltera extends Component {
     })
   }
 
+  getVectorSpace = (params) => {
+    const vs = vectorSpace(this.xRange, this.yRange, this.xStep, this.yStep,params);
+    this.setState({
+      vectorSpace: vs
+    })
+  }
+
   resetParams = () => {
     let { modelParams } = this.state;
     modelParams = { ...this.modelParams };
@@ -89,14 +97,16 @@ export default class LotkaVoltera extends Component {
       modelParams: modelParams
     })
     this.getTrajectory(modelParams);
+    this.getVectorSpace(modelParams);
   }
 
   setParams = () => {
     this.getTrajectory(this.state.modelParams);
+    this.getVectorSpace(this.state.modelParams);
   }
 
-  renderDataPoints = () => {
-    return this.dataGrid.map((i,index) => {
+  renderDataPoints = (vectorSpace) => {
+    return vectorSpace.map((i,index) => {
       if (!isNaN(i.magnitude)) {
 
         const nullX = this.state.xScale(0);
@@ -152,7 +162,7 @@ export default class LotkaVoltera extends Component {
             padding={this.padding}
           >
             <g className={styles.datapoints}>
-              {this.renderDataPoints()}
+              {this.renderDataPoints(this.state.vectorSpace)}
             </g>
             <g>
               <path d={lineStatic(this.state.trajectory)} stroke="red" fill="none"></path>

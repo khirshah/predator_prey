@@ -43,12 +43,12 @@ const hypot = (values) => {
 };
 
 
-const dataGrid = (xRange, yRange, xStep, yStep, modelParams) => {
+const vectorSpace = (xRange, yRange, xStep, yStep, modelParams) => {
   
   const xScale = lodash.range([xRange[0]], xRange[1] + xStep, [xStep]);
   const yScale = lodash.range([yRange[0]], yRange[1] + yStep, [yStep]);
 
-  const dataGrid = xScale.map(xp => {
+  const vectorSpace = xScale.map(xp => {
 
     let column = yScale.map(yp => {
 
@@ -70,7 +70,7 @@ const dataGrid = (xRange, yRange, xStep, yStep, modelParams) => {
     return column;
   });
 
-  return dataGrid.flat(1);
+  return vectorSpace.flat(1);
 };
 
-export {trajectory,dataGrid};
+export { trajectory, vectorSpace };
