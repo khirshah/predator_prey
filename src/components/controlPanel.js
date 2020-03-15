@@ -18,6 +18,7 @@ export default class ControlPanel extends Component {
               placeholder={2/3}
               onChange={(event) => this.props.onchange("preyGrowthRate",event.target.value)}
               aria-label="preyGrowthRate"
+              defaultValue="123"
             />
           </InputGroup>
           <InputGroup className={`${styles.parameter} mb-3`}>
