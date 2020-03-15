@@ -6,10 +6,15 @@ const odex = require("odex");
 
 //-------------------------------------- MODEL -----------------------------------------------------------
 
+/*
+x′ =  ax  − αxy
+y′ = −cy + γxy
+*/
+
 const dX_dt = (X, t=0, modelParams) => {
   const {preyGrowthRate,preyDeathRate, predatorGrowthRate, predatorDeathRate} = modelParams;
-  return [ preyGrowthRate * X[0] - preyDeathRate*X[0]*X[1],
-          predatorGrowthRate*preyDeathRate * X[0]*X[1]- predatorDeathRate*X[1]]
+  return [ preyGrowthRate * X[0] - preyDeathRate * X[0] * X[1],
+          predatorGrowthRate * X[0] * X[1]- predatorDeathRate * X[1]]
 };
 
 
