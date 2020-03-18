@@ -1,0 +1,27 @@
+{
+  "parameters": [
+   {
+    "name": "preyGrowthRate",
+    "label": "prey growth rate",
+    "value": 0.6
+    }
+    ,
+    {
+    "name": "preyDeathRate",
+    "label": "prey death rate",
+    "value": 1.3
+    }
+    ,
+    {
+    "name": "predatorGrowthRate",
+    "label": "predator growth rate",
+    "value": 1
+    }
+    ,
+    {
+    "name": "predatorDeathRate",
+    "label": "predator death rate",
+    "value": 1
+    }
+  ]
+}

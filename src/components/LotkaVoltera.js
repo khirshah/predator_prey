@@ -6,6 +6,7 @@ import * as d3 from "d3";
 import {vectorSpace, trajectory} from "./model";
 import ControlPanel from "./controlPanel";
 import styles from "../styles/lotkaVoltera.css";
+import parameterData from "../data/parameters.json";
 
 
 export default class LotkaVoltera extends Component {
@@ -29,6 +30,8 @@ export default class LotkaVoltera extends Component {
       stop: 9.5,
       step: 0.1
     }
+
+    this.parameterData = parameterData.parameters;
 
     this.modelParams = {
       preyGrowthRate: 2/3,
@@ -150,6 +153,7 @@ export default class LotkaVoltera extends Component {
     return (     
       <Row>
         <ControlPanel 
+          parameterData={this.parameterData}
           onchange={this.handleParameterChange.bind(this)}
           onshowbuttonclick={this.setParams}
           onresetbuttonclick={this.resetParams}

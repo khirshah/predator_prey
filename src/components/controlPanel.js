@@ -5,55 +5,19 @@ import styles from "../styles/controlPanel.css";
 
 export default class ControlPanel extends Component {
 
+  renderInputFields = () => {
+    return (
+      this.props.parameterData.map(d => {
+        return (<InputField key={d.name} parameterData={d} onchange={this.props.onchange}/>)
+      })
+    )
+  }
+
   render() {
     return (
       <Col className={styles.controlPanel}>
         <Row className={styles.parameters}>
-          <InputGroup className={`${styles.parameter} mb-3`}>
-            <InputGroup.Prepend>
-              <InputGroup.Text className={styles.inputText}>prey growth rate</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-              className={styles.paramInput}
-              placeholder={2/3}
-              onChange={(event) => this.props.onchange("preyGrowthRate",event.target.value)}
-              aria-label="preyGrowthRate"
-              defaultValue="123"
-            />
-          </InputGroup>
-          <InputGroup className={`${styles.parameter} mb-3`}>
-            <InputGroup.Prepend>
-              <InputGroup.Text className={styles.inputText}>prey death rate</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl 
-              className={styles.paramInput}
-              placeholder={4/3}
-              onChange={(event) => this.props.onchange("preyDeathRate",event.target.value)}
-              aria-label="preyDeathRate"
-            />
-          </InputGroup>
-          <InputGroup className={`${styles.parameter} mb-3`}>
-            <InputGroup.Prepend>
-              <InputGroup.Text className={styles.inputText}>predator growth rate</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-              className={styles.paramInput}
-              placeholder={1}
-              onChange={(event) => this.props.onchange("predatorGrowthRate",event.target.value)}
-              aria-label="predatorGrowthRate"
-            />
-          </InputGroup>
-          <InputGroup className={`${styles.parameter} mb-3`}>
-            <InputGroup.Prepend>
-              <InputGroup.Text className={styles.inputText}>predator death rate</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-              className={styles.paramInput}
-              placeholder={1}
-              onChange={(event) => this.props.onchange("predatorDeathRate",event.target.value)}
-              aria-label="predatorDeathRate"
-            />
-          </InputGroup>
+          {this.renderInputFields()}
           <Button className={styles.button} variant="outline-dark" onClick={this.props.onshowbuttonclick}>Show</Button>{' '}
           <Button className={styles.button} variant="outline-dark" onClick={this.props.onresetbuttonclick}>Reset</Button>{' '}
         </Row>
@@ -63,22 +27,23 @@ export default class ControlPanel extends Component {
 }
 
 
-/*
 class InputField extends Component {
   render () {
+      const name = this.props.parameterData.name;
+      const label = this.props.parameterData.label;
+      const value = this.props.parameterData.value;
       return (
-        <InputGroup className={`${styles.parameter} mb-3`}>
-          <InputGroup.Prepend>
-            <InputGroup.Text className={styles.inputText}>prey growth rate</InputGroup.Text>
-          </InputGroup.Prepend>
-          <FormControl
-            className={styles.paramInput}
-            placeholder={2/3}
-            onChange={(event) => this.props.onchange("preyGrowthRate",event.target.value)}
-            aria-label="preyGrowthRate"
-          />
-        </InputGroup>
+          <InputGroup className={`${styles.parameter} mb-3`}>
+            <InputGroup.Prepend>
+              <InputGroup.Text className={styles.inputText}>{label}</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              className={styles.paramInput}
+              defaultValue={value}
+              onChange={(event) => this.props.onchange(name,event.target.value)}
+              aria-label={name}
+            />
+          </InputGroup>
     )
   }
 }
-*/
