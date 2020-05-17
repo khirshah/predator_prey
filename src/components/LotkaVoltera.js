@@ -4,7 +4,7 @@ import {Col, Row} from 'react-bootstrap';
 import * as d3 from "d3";
 
 import {vectorSpace, trajectory} from "./model";
-import ControlPanel from "./controlPanel";
+import ControlPanel from "./ControlPanel";
 import styles from "../styles/lotkaVoltera.css";
 import parameterData from "../data/parameters.json";
 
@@ -73,7 +73,7 @@ export default class LotkaVoltera extends Component {
     this.setState({
       modelParams: modelParams
     });
-
+    this.setParams();
   }
 
   getTrajectory = (params) => {
@@ -151,8 +151,8 @@ export default class LotkaVoltera extends Component {
       <Row>
         <ControlPanel 
           parameterData={this.parameterData}
+          parameterValues={this.state.modelParams}
           onchange={this.handleParameterChange.bind(this)}
-          onshowbuttonclick={this.setParams}
           onresetbuttonclick={this.resetParams}
         />
         <Col className={styles.SVGContainer}>

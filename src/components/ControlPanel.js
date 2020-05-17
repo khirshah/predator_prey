@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import { Col, Row, InputGroup, FormControl, Button } from 'react-bootstrap';
+import Slider from 'react-toolbox/lib/slider';
 
 import styles from "../styles/controlPanel.css";
 
 export default class ControlPanel extends Component {
 
   renderInputFields = () => {
+    const { parameterData, parameterValues } = this.props;
     return (
-      this.props.parameterData.map(d => {
-        return (<InputField key={d.name} parameterData={d} onchange={this.props.onchange}/>)
+      parameterData.map(d => {
+        return (
+          <div key={d.name}>
+            <InputField parameterData={d} parameterValue={parameterValues[d.name]} onchange={this.props.onchange}/>
+          </div>
+          )
       })
     )
   }
@@ -18,7 +24,6 @@ export default class ControlPanel extends Component {
       <Col className={styles.controlPanel}>
         <Row className={styles.parameters}>
           {this.renderInputFields()}
-          <Button className={styles.button} variant="outline-dark" onClick={this.props.onshowbuttonclick}>Show</Button>{' '}
           <Button className={styles.button} variant="outline-dark" onClick={this.props.onresetbuttonclick}>Reset</Button>{' '}
         </Row>
       </Col>
@@ -31,7 +36,7 @@ class InputField extends Component {
   render () {
       const name = this.props.parameterData.name;
       const label = this.props.parameterData.label;
-      const value = this.props.parameterData.value;
+      const value = this.props.parameterValue;
       return (
           <InputGroup className={`${styles.parameter} mb-3`}>
             <InputGroup.Prepend>
@@ -39,10 +44,11 @@ class InputField extends Component {
             </InputGroup.Prepend>
             <FormControl
               className={styles.paramInput}
-              defaultValue={value}
+              value={value}
               onChange={(event) => this.props.onchange(name,event.target.value)}
               aria-label={name}
             />
+            <Slider min={0} max={1.9} value={value} onChange={(event) => this.props.onchange(name,event)} />
           </InputGroup>
     )
   }

@@ -8,7 +8,7 @@
     "devstart": "webpack-dev-server --open",
     "start": "node server.js",
     "build": "webpack --mode production",
-    "lint" : "./node_modules/.bin/eslint ./src",
+    "lint": "./node_modules/.bin/eslint ./src",
     "lint-fix": "eslint --fix --ext .js,.jsx ."
   },
   "keywords": [],
@@ -34,7 +34,7 @@
     "style-loader": "^0.23.1",
     "webpack": "^4.38.0",
     "webpack-cli": "^3.3.6",
-    "webpack-dev-server": "^3.7.2"
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
@@ -45,6 +45,7 @@
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.8.6",
-    "react-svg": "^11.0.9"
+    "react-svg": "^11.0.9",
+    "react-toolbox": "^2.0.0-beta.13"
   }
 }
