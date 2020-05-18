@@ -30,3 +30,14 @@
 .controlPanel p {
   color: black;
 }
+
+.innerknob {
+  background-color: #4c7128;
+}
+.innerprogress {
+  background-color: #4c7128 !important;
+}
+
+.innerprogress * {
+    background-color: #4c7128 !important;
+}

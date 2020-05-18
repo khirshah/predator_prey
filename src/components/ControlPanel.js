@@ -48,7 +48,13 @@ class InputField extends Component {
               onChange={(event) => this.props.onchange(name,event.target.value)}
               aria-label={name}
             />
-            <Slider min={0} max={1.9} value={value} onChange={(event) => this.props.onchange(name,event)} />
+            <Slider 
+              min={0}
+              max={1.9}
+              value={value}
+              onChange={(event) => this.props.onchange(name,event)} 
+              theme={styles}
+            />
           </InputGroup>
     )
   }
