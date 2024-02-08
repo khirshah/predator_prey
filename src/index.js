@@ -1,13 +1,13 @@
 // ---------------------------------- IMPORT ------------------------------------------
 // --------------------------- React and Bootstrap --------------------------------
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 // ---------------------------------  styles --------------------------------------
-import styles from "./styles/index.css"
+import styles from './styles/index.css';
 
 // -------------------------------  components ------------------------------------
-import App from "./components/App.js";
+import App from './components/App.js';
 
 // --------------------------------- RENDER ------------------------------------------
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));

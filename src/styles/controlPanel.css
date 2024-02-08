@@ -1,0 +1,43 @@
+.controlPanel {
+  background-color: #658A49;
+
+}
+
+.parameters {
+  padding:20px;
+}
+
+.parameter {
+  padding:5px;
+}
+
+.paramInput {
+
+  padding: 5px;
+  background-color: #bee3a9;
+}
+
+.inputText {
+  color: #cadb8d;
+  background-color: #4c7128;
+  border: 1px solid #274d0d;
+}
+
+.button {
+  margin: 5px;
+}
+
+.controlPanel p {
+  color: black;
+}
+
+.innerknob {
+  background-color: #4c7128;
+}
+.innerprogress {
+  background-color: #4c7128 !important;
+}
+
+.innerprogress * {
+    background-color: #4c7128 !important;
+}
