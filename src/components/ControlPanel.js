@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Row, InputGroup, FormControl, Button } from 'react-bootstrap';
+import { Col, Row, InputGroup, FormControl, Button, Form } from 'react-bootstrap';
 import Slider from 'react-toolbox/lib/slider';
 
 import styles from "../styles/controlPanel.css";
@@ -38,6 +38,7 @@ class InputField extends Component {
       const label = this.props.parameterData.label;
       const value = this.props.parameterValue;
       return (
+        <>
           <InputGroup className={`${styles.parameter} mb-3`}>
             <InputGroup.Text className={styles.inputText}>{label}</InputGroup.Text>
             <FormControl
@@ -54,6 +55,7 @@ class InputField extends Component {
               theme={styles}
             />
           </InputGroup>
+        </>
     )
   }
 }
