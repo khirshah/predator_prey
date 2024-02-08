@@ -2,6 +2,7 @@
 // --------------------------- React and Bootstrap --------------------------------
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 // ---------------------------------  styles --------------------------------------
 import styles from './styles/index.css';
@@ -10,4 +11,6 @@ import styles from './styles/index.css';
 import App from './components/App.js';
 
 // --------------------------------- RENDER ------------------------------------------
-ReactDOM.render(<App />, document.getElementById('root'));
+const container = document.getElementById('root');
+const root = createRoot(container); 
+root.render(<App />)

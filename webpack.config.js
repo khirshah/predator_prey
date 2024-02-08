@@ -1,65 +1,53 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: 'development',
-  entry: {
-    app: './src/index.js',
-  },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist',
+  output: {
+    path: path.join(__dirname, "/public"), // the bundle output path
+    filename: "bundle.js", // the name of the bundle
   },
   plugins: [
-  	new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'R-B playground',
+      title: 'React calculator',
       template: './src/html/index.html',
-      inject: false,
-    }),
-    new CopyPlugin([
-      { from: 'src/assets', to: 'assets' },
-    ]),
+      inject: false
+    })
   ],
-  resolve: { extensions: ['*', '.js', '.jsx'] },
-  output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+  devServer: {
+    port: 3030, // you can change the port
   },
+  resolve: { extensions: [".*", ".js", ".jsx"] },
   module: {
     rules: [
       {
         test: /\.css$/,
         use: [
           {
-            loader: 'style-loader',
+            loader: "style-loader"
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               sourceMap: true,
               modules: {
-                localIdentName: '[name]__[local]___[hash:base64:5]',
+                localIdentName: "[name]__[local]___[hash:base64:5]",
               },
-            },
-          },
-        ],
+            }
+          }
+        ]
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          'file-loader',
-        ],
+        test: /\.(jpg|png|svg|gif)$/,
+        type: 'asset/resource',
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-        },
+          loader: 'babel-loader'
+        }
       },
-    ],
+    ]
   },
+  performance: { hints: false }
 };

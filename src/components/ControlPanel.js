@@ -39,9 +39,7 @@ class InputField extends Component {
       const value = this.props.parameterValue;
       return (
           <InputGroup className={`${styles.parameter} mb-3`}>
-            <InputGroup.Prepend>
-              <InputGroup.Text className={styles.inputText}>{label}</InputGroup.Text>
-            </InputGroup.Prepend>
+            <InputGroup.Text className={styles.inputText}>{label}</InputGroup.Text>
             <FormControl
               className={styles.paramInput}
               value={value}
