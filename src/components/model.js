@@ -34,19 +34,16 @@ const trajectory = (time, modelParams) => {
     preyGrowthRate, preyDeathRate, predatorGrowthRate, predatorDeathRate,
   } = modelParams;
   const timeArray = lodash.range([time.start], time.stop, [time.step]);
-  // const s = new odex.Solver(2);
   const trj = [];
-  // const s = new odex.Solver(LotkaVolterra(2/3, 4/3, 1, 1), 2);
-  // const f = s.integrate(0, [1, 1])
-  // console.log(f(6))
+  const s = new odex.Solver(LotkaVolterra(preyGrowthRate, preyDeathRate, predatorGrowthRate, predatorDeathRate), 2);
 
   timeArray.map((t) => {
-    // const X = s.solve(LotkaVolterra(preyGrowthRate, preyDeathRate, predatorGrowthRate, predatorDeathRate), 0, [2, 1],t);
-    // const f = s.integrate(0, [2, 1])
-    // console.log(f(6))
-    // trj.push([f[0], f[1]]);
+    const f = s.integrate(0, [2, 1])
+    const X = f(t)
+    trj.push([X[0], X[1]]);
   });
 
+  console.log(trj)
   return trj;
 };
 
