@@ -186,91 +186,91 @@ export default class LotkaVoltera extends Component {
 }
 
 
-class Axes extends Component {
-  render() {
-      const {
-            xScale,
-            yScale,
-            xTicks,
-            yTicks,
-            padding,
-            margin,
-            width,
-            height
-            } = this.props.properties; 
-    return(
-          <g>
-           {/*-------------------------------- X Axis -----------------------*/}
-            <g className={`chart-axis chart-axis--x ${styles.axis}`}
-               transform={`translate(0,${height-padding+5})`}>
-                <line
-                  x1={padding}
-                  x2={width-padding}
-                  y1="5"
-                  y2="5"
-                > 
-                </line>
-              {xTicks.map((Xtick) => (
-                  <text 
-                    key={Xtick}
-                    x={xScale(Xtick)-10}
-                    y="27"
-                  >
-                    {Xtick}
-                  </text>
-              ))}
-              {xTicks.map((Xtick) => (
-                  <line
-                    key={Xtick}
-                    x1={xScale(Xtick)}
-                    x2={xScale(Xtick)}
-                    y1={5}
-                    y2={12}
-                  > 
-                  </line>              
-              ))}
-            </g>
-            {/*-------------------------------- Y Axis -----------------------*/}
-              <g className={`chart-axis chart-axis--y  ${styles.axis}`}>
-                <line
-                  x1={padding-5}
-                  x2={padding-5}
-                  y1={padding}
-                  y2={width-padding}
-                > 
-                </line>
-                <text 
-                  className="chart-unit"
-                  transform="rotate(-90)"
-                  x="0" y="0"
-                  color="black"
-                >
-                  {"number of foxes"}
+const Axes = (props) => {
 
-                </text>
+  const {
+        xScale,
+        yScale,
+        xTicks,
+        yTicks,
+        padding,
+        margin,
+        width,
+        height
+        } = props.properties;
 
-              {yTicks.map((Ytick) => (
-                <text 
-                  className="tick"
-                  key={Ytick}
-                  x="12"
-                  y={yScale(Ytick) + 4}
-                >
-                  {Ytick}
-                </text>
-              ))}
-              {yTicks.map((Ytick) => (
-                <line
-                  key={Ytick}
-                  x1={padding-12}
-                  x2={padding-5}
-                  y1={yScale(Ytick)}
-                  y2={yScale(Ytick)}
-                > 
-                </line> 
-              ))}
-            </g>
-        </g>
-      )
-  }
+  return (
+    <g>
+     {/*-------------------------------- X Axis -----------------------*/}
+      <g className={`chart-axis chart-axis--x ${styles.axis}`}
+         transform={`translate(0,${height-padding+5})`}>
+          <line
+            x1={padding}
+            x2={width-padding}
+            y1="5"
+            y2="5"
+          > 
+          </line>
+        {xTicks.map((Xtick) => (
+            <text 
+              key={Xtick}
+              x={xScale(Xtick)-10}
+              y="27"
+            >
+              {Xtick}
+            </text>
+        ))}
+        {xTicks.map((Xtick) => (
+            <line
+              key={Xtick}
+              x1={xScale(Xtick)}
+              x2={xScale(Xtick)}
+              y1={5}
+              y2={12}
+            > 
+            </line>              
+        ))}
+      </g>
+      {/*-------------------------------- Y Axis -----------------------*/}
+        <g className={`chart-axis chart-axis--y  ${styles.axis}`}>
+          <line
+            x1={padding-5}
+            x2={padding-5}
+            y1={padding}
+            y2={width-padding}
+          > 
+          </line>
+          <text 
+            className="chart-unit"
+            transform="rotate(-90)"
+            x="0" y="0"
+            color="black"
+          >
+            {"number of foxes"}
+
+          </text>
+
+        {yTicks.map((Ytick) => (
+          <text 
+            className="tick"
+            key={Ytick}
+            x="12"
+            y={yScale(Ytick) + 4}
+          >
+            {Ytick}
+          </text>
+        ))}
+        {yTicks.map((Ytick) => (
+          <line
+            key={Ytick}
+            x1={padding-12}
+            x2={padding-5}
+            y1={yScale(Ytick)}
+            y2={yScale(Ytick)}
+          > 
+          </line> 
+        ))}
+      </g>
+    </g>
+  )
 }
