@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Row, InputGroup, FormControl, Button, Form } from 'react-bootstrap';
+import { Col, Row, InputGroup, FormControl, Button } from 'react-bootstrap';
 import Slider from 'react-toolbox/lib/slider';
 
 import styles from "../styles/controlPanel.css";
