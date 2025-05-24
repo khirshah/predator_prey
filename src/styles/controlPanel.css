@@ -4,16 +4,16 @@
 }
 
 .parameters {
-  padding:20px;
+  padding: 5%;
 }
 
 .parameter {
-  padding:5px;
+  padding: 0.25em;
 }
 
 .paramInput {
 
-  padding: 5px;
+  padding: 0.25em;
   background-color: #bee3a9;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .button {
-  margin: 5px;
+  margin: 0.25em;
 }
 
 .controlPanel p {
@@ -40,4 +40,27 @@
 
 .innerprogress * {
     background-color: #4c7128 !important;
+}
+
+@media (max-width: 575.98px) {
+  .parameter { /* Applied to InputGroup */
+    flex-wrap: wrap;
+  }
+
+  .parameter .inputText { /* Target InputGroup.Text within .parameter */
+    flex-basis: 100%;
+    margin-bottom: 0.25em; /* Add some space below the label when stacked */
+  }
+
+  .parameter .paramInput, /* Target FormControl */
+  .parameter .slider { /* Assuming 'slider' is a class React Toolbox uses or we might need to inspect for a more specific selector */
+    flex-basis: 100%; /* Allow input and slider to take full width when wrapped */
+    min-width: 150px; /* Ensure they don't get too small */
+  }
+  
+  /* If React Toolbox Slider needs more specific targeting for its container within InputGroup */
+  .parameter > div[class*="slider---"] { /* This is a guess for React Toolbox Slider's generated class */
+    flex-basis: 100% !important;
+    min-width: 150px !important;
+  }
 }

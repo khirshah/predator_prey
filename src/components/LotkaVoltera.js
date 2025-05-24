@@ -149,17 +149,19 @@ export default class LotkaVoltera extends Component {
 
     return (     
       <Row>
-        <ControlPanel 
-          parameterData={this.parameterData}
-          parameterValues={this.state.modelParams}
-          onchange={this.handleParameterChange.bind(this)}
-          onresetbuttonclick={this.resetParams}
-        />
-        <Col className={styles.SVGContainer}>
+        <Col md={4}>
+          <ControlPanel 
+            parameterData={this.parameterData}
+            parameterValues={this.state.modelParams}
+            onchange={this.handleParameterChange.bind(this)}
+            onresetbuttonclick={this.resetParams}
+          />
+        </Col>
+        <Col md={8} className={styles.SVGContainer}>
           <svg 
             className={styles.vectorspace}
-            width={this.width+this.margin}
-            height={this.height+this.margin}
+            viewBox={`0 0 ${this.width + this.margin} ${this.height + this.margin}`}
+            preserveAspectRatio="xMidYMid meet"
             padding={this.padding}
           >
             <g className={styles.datapoints}>

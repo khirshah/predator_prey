@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 // --------------------------  styles ---------------------------------------------
 import styles from '../styles/app.css';
@@ -16,10 +17,12 @@ import LotkaVoltera from './LotkaVoltera';
 class App extends Component {
   render() {
     return (
-      <Container className={styles.App}>
+      <Container fluid className={styles.App}>
         <Row className="justify-content-center"><h1> Predator prey model </h1></Row>
         <Row>
-          <LotkaVoltera />
+          <Col md={12}>
+            <LotkaVoltera />
+          </Col>
         </Row>
       </Container>
     );
