@@ -156,11 +156,11 @@ export default class LotkaVoltera extends Component {
           onresetbuttonclick={this.resetParams}
         />
         <Col className={styles.SVGContainer}>
-          <svg 
+          <svg
             className={styles.vectorspace}
-            width={this.width+this.margin}
-            height={this.height+this.margin}
-            padding={this.padding}
+            viewBox={`0 0 ${this.width + this.margin} ${this.height + this.margin}`}
+            preserveAspectRatio="xMidYMid meet"
+            style={{ width: '100%', height: 'auto' }}
           >
             <g className={styles.datapoints}>
               {this.renderDataPoints(this.state.vectorSpace)}
