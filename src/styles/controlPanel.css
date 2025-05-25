@@ -1,5 +1,5 @@
 .controlPanel {
-  background-color: #658A49;
+  background-color: #59922E;
 
 }
 
@@ -14,13 +14,13 @@
 .paramInput {
 
   padding: 0.25em;
-  background-color: #bee3a9;
+  background-color: #D1E8C5;
 }
 
 .inputText {
-  color: #cadb8d;
-  background-color: #4c7128;
-  border: 1px solid #274d0d;
+  color: #0d0d0d;
+  background-color: #D1E8C5;
+  border: 1px solid #4A7D2A;
 }
 
 .button {
@@ -28,18 +28,18 @@
 }
 
 .controlPanel p {
-  color: black;
+  color: #0d0d0d;
 }
 
 .innerknob {
-  background-color: #4c7128;
+  background-color: #0d0d0d;
 }
 .innerprogress {
-  background-color: #4c7128 !important;
+  background-color: #0d0d0d !important;
 }
 
 .innerprogress * {
-    background-color: #4c7128 !important;
+    background-color: #0d0d0d !important;
 }
 
 @media (max-width: 575.98px) {
@@ -64,3 +64,109 @@
     min-width: 150px !important;
   }
 }
+
+/* Generic input[type=range] styling */
+input[type=range] {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 100%; /* Full-width */
+  background: transparent; /* Otherwise white in Chrome */
+}
+
+/* Webkit (Chrome, Safari, Opera, Edge Chromium) */
+input[type=range]::-webkit-slider-runnable-track {
+  background: #59922E; /* Theme accent green */
+  height: 8px;
+  border-radius: 4px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -4px; /* Centers thumb on track */
+  background: #0d0d0d; /* Theme dark color */
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Firefox */
+input[type=range]::-moz-range-track {
+  background: #59922E; /* Theme accent green */
+  height: 8px;
+  border-radius: 4px;
+  border: none; /* Reset Firefox default border */
+}
+
+input[type=range]::-moz-range-thumb {
+  background: #0d0d0d; /* Theme dark color */
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  border: none; /* Reset Firefox default border */
+  cursor: pointer;
+}
+
+/* IE / Edge Legacy (styling is more limited) */
+input[type=range]::-ms-track {
+  background: #59922E; /* Theme accent green */
+  height: 8px;
+  border-radius: 4px;
+  color: transparent; /* Hides the default fill */
+  border-width: 0; /* IE specific */
+}
+input[type=range]::-ms-fill-lower { /* IE specific */
+    background: #59922E;
+    border-radius: 4px;
+}
+input[type=range]::-ms-fill-upper { /* IE specific */
+    background: #59922E; /* Make sure unifill part also has same color */
+    border-radius: 4px;
+}
+input[type=range]::-ms-thumb {
+  background: #0d0d0d; /* Theme dark color */
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  border: 0;
+  margin-top: 0px; /* IE specific */
+  cursor: pointer;
+}
+
+/* React Toolbox / similar libraries - common class name patterns */
+/* These are guesses based on common patterns like 'slider---[role]---[variation]' */
+/* Or 'rc-slider-[part]' */
+
+/* General slider track */
+div[class*="slider---track---"], 
+div[class*="rc-slider-track"] {
+  background-color: #59922E !important; /* Theme accent green */
+}
+
+/* Slider progress/fill */
+div[class*="slider---progress---"],
+div[class*="rc-slider-rail"] { /* rc-slider-rail is often the underlying bar, track is the fill */
+  background-color: #4A7D2A !important; /* Darker green for fill or base */
+}
+/* If rc-slider-rail is the base, then rc-slider-track should be the accent */
+div[class*="rc-slider-track"] {
+    background-color: #59922E !important; 
+}
+
+
+/* Slider thumb */
+div[class*="slider---thumb---"], 
+div[class*="rc-slider-handle"] {
+  background-color: #0d0d0d !important; /* Theme dark color */
+  border: 2px solid #0d0d0d !important; /* Ensure visibility if needed */
+}
+
+/* Specific for React Toolbox if it uses inline styles or SVGs for knobs/thumbs */
+/* This might be harder to override without more specific selectors */
+div[class*="slider---innerknob---"] { /* If there's an inner part to the thumb */
+    background-color: #0d0d0d !important;
+}
+
+/* The existing .innerknob and .innerprogress already target some knob-like elements */
+/* We made them #0d0d0d, which is consistent for a thumb-like element */
