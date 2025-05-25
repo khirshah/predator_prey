@@ -33,14 +33,21 @@ const trajectory = (time, modelParams) => {
   const {
     preyGrowthRate, preyDeathRate, predatorGrowthRate, predatorDeathRate,
   } = modelParams;
-  const timeArray = lodash.range([time.start], time.stop, [time.step]);
-  const trj = [];
+  // Corrected lodash.range usage:
+  const timeArray = lodash.range(time.start, time.stop, time.step); 
+
   const s = new odex.Solver(LotkaVolterra(preyGrowthRate, preyDeathRate, predatorGrowthRate, predatorDeathRate), 2);
 
-  timeArray.map((t) => {
-    const f = s.integrate(0, [2, 1])
-    const X = f(t)
-    trj.push([X[0], X[1]]);
+  // Define initial conditions (currently hardcoded to match previous behavior's starting point for segments)
+  const initialConditions = [2, 1]; 
+
+  // Perform the integration setup once
+  // s.integrate(t_start, y_initial) returns a solution function f(t)
+  const solution = s.integrate(0, initialConditions); // Assuming t_start for integration is 0
+
+  const trj = timeArray.map(t => {
+    const X = solution(t); // Evaluate the single solution at each time t
+    return [X[0], X[1]];
   });
 
   return trj;
