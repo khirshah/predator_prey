@@ -1,5 +1,5 @@
 .controlPanel {
-  background-color: #59922E;
+  background-color: #1a1a1a;
 
 }
 
@@ -14,13 +14,15 @@
 .paramInput {
 
   padding: 0.25em;
-  background-color: #D1E8C5;
+  background-color: #59922E;
+  border-radius: 4px;
 }
 
 .inputText {
   color: #0d0d0d;
-  background-color: #D1E8C5;
-  border: 1px solid #4A7D2A;
+  background-color: #59922E;
+  border: 1px solid #0d0d0d;
+  border-radius: 4px;
 }
 
 .button {
@@ -28,18 +30,18 @@
 }
 
 .controlPanel p {
-  color: #0d0d0d;
+  color: #FFF9B3A3;
 }
 
 .innerknob {
-  background-color: #0d0d0d;
+  background-color: #59922E;
 }
 .innerprogress {
-  background-color: #0d0d0d !important;
+  background-color: #59922E !important;
 }
 
 .innerprogress * {
-    background-color: #0d0d0d !important;
+    background-color: #59922E !important;
 }
 
 @media (max-width: 575.98px) {
@@ -147,9 +149,10 @@ div[class*="rc-slider-track"] {
 /* Slider progress/fill */
 div[class*="slider---progress---"],
 div[class*="rc-slider-rail"] { /* rc-slider-rail is often the underlying bar, track is the fill */
-  background-color: #4A7D2A !important; /* Darker green for fill or base */
+  background-color: #59922E !important; /* Theme accent green for fill or base */
 }
 /* If rc-slider-rail is the base, then rc-slider-track should be the accent */
+/* Ensuring rc-slider-track (often the fill) is also the main accent green */
 div[class*="rc-slider-track"] {
     background-color: #59922E !important; 
 }
