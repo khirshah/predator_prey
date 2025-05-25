@@ -14,19 +14,33 @@
 .paramInput {
 
   padding: 0.25em;
-  background-color: #59922E;
+  background-color: #A3D197;
+  border: 1px solid #0d0d0d;
   border-radius: 4px;
+  overflow: hidden;
 }
 
 .inputText {
-  color: #0d0d0d;
-  background-color: #59922E;
-  border: 1px solid #0d0d0d;
+  color: #FFF9B3A3;
+  background-color: #0d0d0d;
+  border: 1px solid #1a1a1a;
   border-radius: 4px;
+  overflow: hidden;
 }
 
 .button {
   margin: 0.25em;
+  background-color: transparent;
+  border: 1px solid #59922E;
+  color: #59922E;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+}
+
+.button:active {
+  background-color: #59922E;
+  color: #FFF9B3A3;
+  border-color: #59922E;
 }
 
 .controlPanel p {
@@ -173,3 +187,46 @@ div[class*="slider---innerknob---"] { /* If there's an inner part to the thumb *
 
 /* The existing .innerknob and .innerprogress already target some knob-like elements */
 /* We made them #0d0d0d, which is consistent for a thumb-like element */
+
+/* Material-UI Slider Styles */
+
+/* Rail - the inactive part of the track */
+.MuiSlider-rail {
+  background-color: #2a2a2a !important; /* Dark gray, slightly lighter than panel */
+  /* MUI sliders often have opacity, ensure it's fully opaque if needed */
+  opacity: 1 !important; 
+}
+
+/* Track - the active part of the track */
+.MuiSlider-track {
+  background-color: #59922E !important; /* Main green accent */
+}
+
+/* Thumb - the draggable part */
+.MuiSlider-thumb {
+  background-color: #0d0d0d !important; /* Dark color */
+  /* MUI thumbs can have a default box-shadow for focus/hover, override if needed */
+  /* Example: box-shadow: none !important; */
+}
+
+/* Optional: Styling for hover/focus states if default MUI blue is still appearing */
+.MuiSlider-thumb.Mui-focusVisible, 
+.MuiSlider-thumb:hover {
+  box-shadow: 0px 0px 0px 8px rgba(89, 146, 46, 0.16) !important; /* Subtle green shadow */
+}
+
+.MuiSlider-thumb.Mui-active { /* When thumb is being dragged */
+  box-shadow: 0px 0px 0px 14px rgba(89, 146, 46, 0.16) !important; /* Larger green shadow */
+}
+
+/* If the slider has marks */
+.MuiSlider-mark {
+    background-color: #A3D197 !important; /* Light green for marks */
+    height: 8px !important;
+    width: 2px !important;
+    margin-top: -3px !important;
+}
+
+.MuiSlider-markActive {
+    background-color: #59922E !important; /* Darker green for active marks */
+}
