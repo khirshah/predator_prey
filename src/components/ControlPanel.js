@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Row, InputGroup, FormControl, Button } from 'react-bootstrap';
-import Slider from 'react-toolbox/lib/slider';
+import Slider from '@mui/material/Slider';
 
 import styles from "../styles/controlPanel.css";
 
@@ -47,12 +47,13 @@ class InputField extends Component {
               onChange={(event) => this.props.onchange(name,event.target.value)}
               aria-label={name}
             />
-            <Slider 
+            <Slider
               min={0}
               max={1.9}
-              value={value}
-              onChange={(event) => this.props.onchange(name,event)} 
-              theme={styles}
+              value={parseFloat(value)} // MUI Slider expects a number
+              onChange={(event, newValue) => this.props.onchange(name, newValue)}
+              step={0.1} // Assuming a step, react-toolbox might have had a default
+              aria-labelledby={label} // For accessibility, using label
             />
           </InputGroup>
         </>
