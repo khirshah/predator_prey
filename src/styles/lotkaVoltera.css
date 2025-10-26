@@ -1,6 +1,36 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 80%;
+    width: 90%;
+    max-width: 800px;
+    margin: auto;
+
+    @media (max-width: 768px) {
+        flex-direction: column-reverse;
+        height: 80%;
+        width: 90%;
+    }
+}
+
+.SVGContainer {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.vectorspace{
+    background-color:  var(--color-graph-background);
+    border-radius: 0 12px 12px 0;
+
+    @media (max-width: 768px) {
+        border-radius: 12px 12px 0 0;
+    }
+}
+
 .axis path,
 .axis line{
-  stroke: #FFF9B3A3;
+  stroke: var(--color-dark);
   stroke-width: 2px;
   shape-rendering: crispEdges;
 }
@@ -9,15 +39,5 @@
   font-family: Optima, Futura, sans-serif;
   font-weight: bold;
   font-size: 0.75rem;
-  fill: #FFF9B3A3;
+  fill:  var(--color-dark);;
 }
-
-.SVGContainer {
-  display: flex;
-  justify-content: center;
-}
-
-.vectorspace{
-  background-color: #2c2c2c;
-}
-

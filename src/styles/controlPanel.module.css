@@ -1,0 +1,60 @@
+.controlPanel {
+    background-color: var(--color-dark);
+    padding: 2rem;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    flex-grow: 0.5;
+    border-radius: 12px 0 0 12px;
+
+    @media (max-width: 768px) {
+        border-radius: 0 0 12px 12px;
+    }
+}
+
+.parameters {
+    padding: 5%;
+}
+
+.parameter {
+    padding: 0.25em;
+    border: 1px solid var(--color-dark);
+    background-color: var(--color-dark);
+}
+
+.paramInput {
+    padding: 0.25em;
+    background-color: var(--color-lightest);
+    border: 1px solid var(--color-dark);
+    overflow: hidden;
+    align-content: center;
+    border-radius: 0 4px 4px 0 !important;
+}
+
+.inputText {
+    color: var(--color-darkest);
+    background-color: var(--color-light);
+    border: 1px solid var(--color-medium);
+    border-radius: 4px;
+    overflow: hidden;
+    width: 84%
+}
+
+.button {
+    background-color: var(--color-dark);
+    color: var(--color-lightest);
+    border: 2px solid var(--color-medium);
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .controlPanel {
+        width: 100%;
+        padding: 1rem;
+    }
+}
