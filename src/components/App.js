@@ -18,12 +18,8 @@ class App extends Component {
   render() {
     return (
       <Container fluid className={styles.App}>
-        <Row className="justify-content-center"><h1> Predator prey model </h1></Row>
-        <Row>
-          <Col md={12}>
-            <LotkaVoltera />
-          </Col>
-        </Row>
+        <div className={styles.header}><h1> Predator prey model </h1></div>
+        <LotkaVoltera />
       </Container>
     );
   }

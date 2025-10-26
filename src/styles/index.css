@@ -1,18 +1,8 @@
-html {
-  height:100%;
-}
-body {
-  height: 100%;
-  background-color: #0d0d0d;
-  background-image: repeating-linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.02),
-    rgba(255, 255, 255, 0.02) 1px,
-    transparent 1px,
-    transparent 10px
-  );
-}
-
-#root {
-  height:100%;
+:root {
+    --color-darkest: #132A13;
+    --color-dark: #31572C;
+    --color-medium: #4F772D;
+    --color-light: #90A955;
+    --color-lightest: #ECF39E;
+    --color-graph-background: #F7FCBF;
 }

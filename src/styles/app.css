@@ -1,5 +1,14 @@
 .App {
-  width: 100%;
-  font-family: 'Montserrat', sans-serif;
-  color: #FFF9B3A3;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--color-darkest);
+    color: var(--color-lightest);
+
+    .header {
+        display: flex;
+        justify-content: center;
+        color: var(--color-lightest);
+        margin: 20px 0
+    }
 }
